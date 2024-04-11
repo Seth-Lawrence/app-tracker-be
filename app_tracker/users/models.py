@@ -1,7 +1,6 @@
 from app_tracker.database import db
 from sqlalchemy.orm import validates
 from flask_bcrypt import Bcrypt, generate_password_hash
-from datetime import datetime
 
 bcrypt = Bcrypt()
 
