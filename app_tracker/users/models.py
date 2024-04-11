@@ -29,24 +29,19 @@ class User(db.Model):
         db.String(),
     )
 
-    @validates('password')
-    def validate_password(self, key, password):
-        '''validates pw to ensure it's not too short'''
-
-        if len(password) < 8:
-            raise ValueError('Password must be at least 8 characters long')
-
     @classmethod
     def register(self, username, name, password):
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
-        print(hashed_pwd)
 
         user = User(
             username=username,
-            name = name,
-            password=hashed_pwd
+            name=name,
+            password=hashed_pwd,
         )
+
+        print(user.password)
+        print(user.username)
 
         db.session.add(user)
         db.session.commit()
