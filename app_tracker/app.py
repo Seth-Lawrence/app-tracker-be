@@ -1,6 +1,9 @@
 from flask import Flask
-from flask_bcrypt import Bcrypt
+
+from app_tracker.database import connect_db
+from app_tracker.config import DATABASE_URL
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
+connect_db(app)

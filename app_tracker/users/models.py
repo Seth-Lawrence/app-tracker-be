@@ -16,21 +16,21 @@ class User(db.Model):
     )
 
     name = db.Column(
-        db.string(20),
-        optional=True,
+        db.String(20),
+        nullable=True,
     )
 
     username = db.Column(
-        db.string(20),
+        db.String(20),
         unique=True,
     )
 
     password = db.Column(
-        db.string(),
+        db.String(),
     )
 
     @validates('password')
-    def validate_password(self, password):
+    def validate_password(self, key, password):
         '''validates pw to ensure it's not too short'''
 
         if len(password) < 8:
@@ -38,10 +38,14 @@ class User(db.Model):
 
     @classmethod
     def register(self, username, name, password):
+
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+        print(hashed_pwd)
+
         user = User(
             username=username,
             name = name,
-            password=generate_password_hash(password)
+            password=hashed_pwd
         )
 
         db.session.add(user)
