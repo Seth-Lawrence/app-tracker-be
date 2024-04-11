@@ -1,5 +1,4 @@
 from app_tracker.database import db
-from sqlalchemy.orm import validates
 from flask_bcrypt import Bcrypt, generate_password_hash
 
 bcrypt = Bcrypt()
@@ -32,7 +31,7 @@ class User(db.Model):
     @classmethod
     def register(self, username, name, password):
 
-        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+        hashed_pwd = generate_password_hash(password).decode('UTF-8')
 
         user = User(
             username=username,
