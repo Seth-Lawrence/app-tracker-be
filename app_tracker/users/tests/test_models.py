@@ -12,6 +12,8 @@ verify_test_env_or_error()
 
 app.config['TESTING'] = True
 
+db.drop_all()
+db.create_all()
 
 class UsersTestCase(TestCase):
     def setUp(self):
