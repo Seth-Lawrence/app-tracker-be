@@ -51,17 +51,18 @@ class UsersTestCase(TestCase):
     def test_u1_added(self):
         '''tests if first user was added correctly'''
 
-        u1 = User.query.one()
+        u1 = User.query.all()
 
-        self.assertEqual(u1.username, 'test_user_1')
-        self.assertEqual(u1.name, 'u1')
-        self.assertIsNotNone(u1.password)
+        self.assertEqual(u1[0].username, 'test_user_1')
+        self.assertEqual(u1[0].name, 'u1')
+        self.assertIsNotNone(u1[0].password)
 
     def test_u2_added(self):
         '''tests if second user was added correctly'''
 
         users = User.query.all()
+        print(users)
 
-        self.assertEqual(users.u2.username, 'test_user_2')
-        self.assertEqual(users.u2.name, 'u2')
-        self.assertIsNotNone(users.u2.password)
+        self.assertEqual(users[1].username, 'test_user_2')
+        self.assertEqual(users[1].name, 'u2')
+        self.assertIsNotNone(users[1].password)
