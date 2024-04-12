@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt, generate_password_hash
 
 bcrypt = Bcrypt()
 
+
 class User(db.Model):
     '''model for user class'''
 
