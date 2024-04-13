@@ -23,10 +23,12 @@ class User(db.Model):
     username = db.Column(
         db.String(20),
         unique=True,
+        nullable=False
     )
 
     password = db.Column(
         db.String(),
+        nullable=False
     )
 
     @classmethod
