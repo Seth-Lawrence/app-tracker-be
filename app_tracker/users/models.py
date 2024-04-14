@@ -3,7 +3,6 @@ from flask_bcrypt import Bcrypt, generate_password_hash
 
 bcrypt = Bcrypt()
 
-
 class User(db.Model):
     '''model for user class'''
 
@@ -30,6 +29,8 @@ class User(db.Model):
         db.String(),
         nullable=False
     )
+
+    apps = db.relatiopnship('Application')
 
     @classmethod
     def register(self, username, name, password):
