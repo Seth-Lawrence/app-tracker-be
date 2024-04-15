@@ -30,7 +30,7 @@ class User(db.Model):
         nullable=False
     )
 
-    apps = db.relatiopnship('Application')
+    apps = db.relationship('Application')
 
     @classmethod
     def register(self, username, name, password):
@@ -42,9 +42,6 @@ class User(db.Model):
             name=name,
             password=hashed_pwd,
         )
-
-        print(user.password)
-        print(user.username)
 
         db.session.add(user)
         db.session.commit()
