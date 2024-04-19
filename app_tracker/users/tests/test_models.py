@@ -74,7 +74,7 @@ class UsersTestCase(TestCase):
         user = resp[0]
 
         self.assertEqual(user.username, 'registered_user')
+
+        #ensuring the password is not in plain text
         self.assertNotEqual(user.password, 'password')
         self.assertIsNotNone(user.password)
-
-
