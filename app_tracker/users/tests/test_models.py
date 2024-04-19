@@ -61,8 +61,20 @@ class UsersTestCase(TestCase):
         '''tests if second user was added correctly'''
 
         users = User.query.all()
-        print(users)
 
         self.assertEqual(users[1].username, 'test_user_2')
         self.assertEqual(users[1].name, 'u2')
         self.assertIsNotNone(users[1].password)
+
+    def test_register_method(self):
+        '''tests if register method workds'''
+
+        User.register('registered_user','registered_name','password')
+        resp = User.query.filter(User.username == 'registered_user')
+        user = resp[0]
+
+        self.assertEqual(user.username, 'registered_user')
+        self.assertNotEqual(user.password, 'password')
+        self.assertIsNotNone(user.password)
+
+
