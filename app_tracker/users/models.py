@@ -69,7 +69,7 @@ class User(db.Model):
     ):
         '''adds new application for user'''
 
-        Application(
+        app = Application(
             user_id = self.id,
             status = status,
             company_name = company_name,
@@ -84,8 +84,11 @@ class User(db.Model):
             outreach_response = outreach_response,
             referral = referral,
             result_date = result_date,
-            min_pay = None,
-            max_pay = None,
-            outreach_date = datetime,
-            num_rounds_reached=0
+            min_pay = min_pay,
+            max_pay = max_pay,
+            outreach_date = outreach_date,
+            num_rounds_reached = num_rounds_reached
         )
+
+        db.session.add(app)
+        db.session.commit()
