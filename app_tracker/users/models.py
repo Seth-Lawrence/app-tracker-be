@@ -44,9 +44,12 @@ class User(db.Model):
             name=name,
             password=hashed_pwd,
         )
+        #FIXME: returning user and adding user in the route, but will break tests
 
-        db.session.add(user)
-        db.session.commit()
+        # db.session.add(user)
+        # db.session.commit()
+
+        return user
 
     def add_application(self,
                         status:str,
@@ -90,5 +93,7 @@ class User(db.Model):
             num_rounds_reached = num_rounds_reached
         )
 
-        db.session.add(app)
-        db.session.commit()
+        # db.session.add(app)
+        # db.session.commit()
+
+        return app

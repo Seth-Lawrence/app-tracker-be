@@ -60,14 +60,19 @@ class UsersTestCase(TestCase):
     def test_u2_added(self):
         '''tests if second user was added correctly'''
 
-        users = User.query.all()
+        resp = User.query.filter(User.name == 'u2')
+        print(resp)
+        user = resp[0]
 
-        self.assertEqual(users[1].username, 'test_user_2')
-        self.assertEqual(users[1].name, 'u2')
-        self.assertIsNotNone(users[1].password)
+        self.assertEqual(user.username, 'test_user_2')
+        self.assertEqual(user.name, 'u2')
+        self.assertIsNotNone(user.password)
+
+        #ensuring the password is not in plain text
+        self.assertNotEqual(user.password, 'password')
 
     def test_register_method(self):
-        '''tests if register method workds'''
+        '''tests if register method works'''
 
         User.register('registered_user','registered_name','password')
         resp = User.query.filter(User.username == 'registered_user')
