@@ -92,6 +92,9 @@ class User(db.Model):
             outreach_date = outreach_date,
             num_rounds_reached = num_rounds_reached
         )
+        #FIXME: make sure you're adding instances in the testing & in the routes,
+        # will break tests until fixed.
+
 
         # db.session.add(app)
         # db.session.commit()
