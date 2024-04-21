@@ -35,6 +35,30 @@ class User(db.Model):
     apps = db.relationship('Application')
 
     @classmethod
+    def validate_signup(self, username:str, name:str, password:str):
+        '''validates that the signup information is valid,
+        return error obj if errors, or None if validated
+        '''
+        errors = {}
+
+        if username > 20 or username < 2:
+            errors['username'] = (
+                'username is less than 2 or greater than 20 chars'
+            )
+        if name > 20 or name < 2:
+            errors['name'] = (
+                'username is less than 2 or greater than 20 chars'
+            )
+        if password < 9:
+            errors['password'] = (
+                'password must be at least 9 characters'
+            )
+
+        return errors if errors else None
+
+
+
+    @classmethod
     def register(self, username:str, name:str, password:str):
 
         hashed_pwd = generate_password_hash(password).decode('UTF-8')
