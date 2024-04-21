@@ -44,12 +44,12 @@ class User(db.Model):
             name=name,
             password=hashed_pwd,
         )
-        #FIXME: returning user and adding user in the route, but will break tests
+        #FIXME: add commits to the route instead of the model for err. handling
 
-        # db.session.add(user)
-        # db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
-        return user
+        # return user
 
     def add_application(self,
                         status:str,
@@ -92,11 +92,9 @@ class User(db.Model):
             outreach_date = outreach_date,
             num_rounds_reached = num_rounds_reached
         )
-        #FIXME: make sure you're adding instances in the testing & in the routes,
-        # will break tests until fixed.
+        #FIXME: add commits to the route instead of the model for err. handling
 
-
-        # db.session.add(app)
-        # db.session.commit()
+        db.session.add(app)
+        db.session.commit()
 
         return app
