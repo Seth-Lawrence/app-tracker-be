@@ -34,6 +34,8 @@ class User(db.Model):
 
     apps = db.relationship('Application')
 
+    #TODO: test validate signup
+
     @classmethod
     def validate_signup(self, username:str, name:str, password:str):
         '''validates that the signup information is valid,
