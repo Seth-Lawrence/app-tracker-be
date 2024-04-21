@@ -13,7 +13,7 @@ def register_user():
     errors = User.validate_signup(user_data)
 
     if errors:
-        return errors
+        return jsonify(errors=errors)
 
     user = User.register(user_data)
 
@@ -24,4 +24,4 @@ def register_user():
     except:
         raise RuntimeError('sign up failed')
 
-    return user
+    return jsonify(user=user)
