@@ -5,7 +5,23 @@ from app_tracker.users.models import User
 user = Blueprint('user',__name__)
 
 @user.post('/register')
-def register_user(username, password):
+def register_user():
     '''calls register user on the api and registers the user'''
 
-    User.register_user(username=username, password=password)
+    user_data = request.json
+
+    errors = User.validate_signup(user_data)
+
+    if errors:
+        return errors
+
+    user = User.register(user_data)
+
+    db.session.add(user)
+
+    try:
+        db.session.commit()
+    except:
+        raise RuntimeError('sign up failed')
+
+    return user

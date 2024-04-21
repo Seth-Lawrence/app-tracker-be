@@ -37,31 +37,41 @@ class User(db.Model):
     #TODO: test validate signup
 
     @classmethod
-    def validate_signup(self, username:str, name:str, password:str):
+    def validate_signup(self, user_data):
         '''validates that the signup information is valid,
         return error obj if errors, or None if validated
         '''
         errors = {}
 
-        if username > 20 or username < 2:
+        username = user_data.get('username',None)
+        name = user_data.get('name',None)
+        password = user_data.get('password',None)
+
+        username_length = len(username)
+        name_length = len(name)
+        password_length = len(password)
+
+        if username_length > 20 or username_length < 2 or not username:
             errors['username'] = (
                 'username is less than 2 or greater than 20 chars'
             )
-        if name > 20 or name < 2:
+        if name_length > 20 or name_length < 2 or not name:
             errors['name'] = (
                 'username is less than 2 or greater than 20 chars'
             )
-        if password < 9:
+        if password_length < 9 or not password:
             errors['password'] = (
                 'password must be at least 9 characters'
             )
 
         return errors if errors else None
 
-
-
     @classmethod
-    def register(self, username:str, name:str, password:str):
+    def register(self, user_data):
+
+        username = user_data['username']
+        name = user_data['name']
+        password = user_data['password']
 
         hashed_pwd = generate_password_hash(password).decode('UTF-8')
 
@@ -72,10 +82,10 @@ class User(db.Model):
         )
         #FIXME: add commits to the route instead of the model for err. handling
 
-        db.session.add(user)
-        db.session.commit()
+        # db.session.add(user)
+        # db.session.commit()
 
-        # return user
+        return user
 
     def add_application(self,
                         status:str,
