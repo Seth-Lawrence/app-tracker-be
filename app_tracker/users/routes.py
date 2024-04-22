@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from app_tracker.database import db
 from app_tracker.users.models import User
+from sqlalchemy import exc
+
 
 user = Blueprint('user',__name__)
 
@@ -20,7 +22,7 @@ def register_user():
     try:
         db.session.add(user)
         db.session.commit()
-    except RuntimeError:
+    except exc.IntegrityError:
         return jsonify(error='signup failed')
 
     return jsonify(user=user)

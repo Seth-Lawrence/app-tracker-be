@@ -7,4 +7,6 @@ from app_tracker.users.routes import user
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
+app.register_blueprint(user, url_prefix='/api/user')
+
 connect_db(app)
