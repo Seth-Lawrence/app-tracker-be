@@ -17,11 +17,10 @@ def register_user():
 
     user = User.register(user_data)
 
-    db.session.add(user)
-
     try:
+        db.session.add(user)
         db.session.commit()
-    except:
-        raise RuntimeError('sign up failed')
+    except RuntimeError:
+        return jsonify(error='signup failed')
 
     return jsonify(user=user)
