@@ -24,6 +24,16 @@ def register_user():
     try:
         db.session.commit()
     except exc.IntegrityError:
+        db.session.rollback()
         return jsonify(error='Username taken.')
 
     return jsonify(user=user)
+
+
+@user.post('/signin')
+def sign_in():
+    '''signs in user'''
+
+    user_data = request.json
+
+

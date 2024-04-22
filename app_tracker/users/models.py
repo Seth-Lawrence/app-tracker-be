@@ -37,7 +37,7 @@ class User(db.Model):
     #TODO: test validate signup
 
     @classmethod
-    def validate_signup(self, user_data):
+    def validate_signup(cls, user_data):
         '''validates that the signup information is valid,
         return error obj if errors, or None if validated
         '''
@@ -67,7 +67,7 @@ class User(db.Model):
         return errors if errors else None
 
     @classmethod
-    def register(self, user_data):
+    def register(cls, user_data):
 
         username = user_data['username']
         name = user_data['name']
@@ -86,6 +86,10 @@ class User(db.Model):
         # db.session.commit()
 
         return user
+
+    @classmethod
+    def authenticate(cls, username, password):
+        '''checks username and password and logs in user'''
 
     def add_application(self,
                         status:str,

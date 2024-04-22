@@ -9,3 +9,4 @@ if 'TESTING' in os.environ:
 else:
     DATABASE_URL = os.environ['DATABASE_URL']
 
+SECRET_KEY = os.environ['SECRET_KEY']

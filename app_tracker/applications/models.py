@@ -90,3 +90,11 @@ class Application(db.Model):
     result_date = db.Column(
         db.DateTime
     )
+
+    notes = db.Column(
+        db.String()
+    )
+
+    job_link = db.Column(
+        db.String()
+    )
