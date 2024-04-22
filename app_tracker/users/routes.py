@@ -23,6 +23,6 @@ def register_user():
         db.session.add(user)
         db.session.commit()
     except exc.IntegrityError:
-        return jsonify(error='signup failed')
+        return jsonify(error='Username taken.')
 
     return jsonify(user=user)
