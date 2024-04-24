@@ -91,6 +91,8 @@ class User(db.Model):
     def authenticate(cls, username, password):
         '''checks username and password and logs in user'''
 
+
+
     def add_application(self,
                         status:str,
                         company_name:str,
