@@ -5,6 +5,7 @@ from datetime import datetime
 
 bcrypt = Bcrypt()
 
+
 class User(db.Model):
     '''model for user class'''
 
@@ -34,7 +35,7 @@ class User(db.Model):
 
     apps = db.relationship('Application')
 
-    #TODO: test validate signup
+    # TODO: test validate signup
 
     @classmethod
     def validate_signup(cls, user_data):
@@ -43,9 +44,9 @@ class User(db.Model):
         '''
         errors = {}
 
-        username = user_data.get('username',None)
-        name = user_data.get('name',None)
-        password = user_data.get('password',None)
+        username = user_data.get('username', None)
+        name = user_data.get('name', None)
+        password = user_data.get('password', None)
 
         username_length = len(username)
         name_length = len(name)
@@ -81,13 +82,12 @@ class User(db.Model):
             password=hashed_pwd,
         )
 
-        #FIXME: giong to break tests since I moved db commits to routes
+        # FIXME: giong to break tests since I moved db commits to routes
 
         return user
 
-
     @classmethod
-    def authenticate(cls, username:str, password:str) -> bool:
+    def authenticate(cls, username: str, password: str) -> bool:
         '''checks username and password and logs in user or returns none'''
 
         user = User.query.filter(User.username == username).one_or_none()
@@ -99,49 +99,48 @@ class User(db.Model):
 
         return False
 
-
     def add_application(self,
-                        status:str,
-                        company_name:str,
-                        job_title:str,
-                        city:str,
-                        state:str,
-                        cover_letter:bool,
-                        remote:bool | None,
-                        app_recived_confirm:bool | None,
+                        status: str,
+                        company_name: str,
+                        job_title: str,
+                        city: str,
+                        state: str,
+                        cover_letter: bool,
+                        remote: bool | None,
+                        app_recived_confirm: bool | None,
                         farthest_round_cat: str,
-                        outreach:bool | None,
-                        outreach_response:bool | None,
-                        referral:bool | None,
-                        result_date:datetime | None,
-                        min_pay:int | None = None,
-                        max_pay:int | None = None,
-                        outreach_date:datetime | None = datetime,
+                        outreach: bool | None,
+                        outreach_response: bool | None,
+                        referral: bool | None,
+                        result_date: datetime | None,
+                        min_pay: int | None = None,
+                        max_pay: int | None = None,
+                        outreach_date: datetime | None = datetime,
                         num_rounds_reached: int = 0
-    ):
+                        ):
         '''adds new application for user'''
 
         app = Application(
-            user_id = self.id,
-            status = status,
-            company_name = company_name,
-            job_title = job_title,
-            remote = remote,
-            city = city,
-            state = state,
-            cover_letter = cover_letter,
-            app_recived_confirm = app_recived_confirm,
-            farthest_round_cat = farthest_round_cat,
-            outreach = outreach,
-            outreach_response = outreach_response,
-            referral = referral,
-            result_date = result_date,
-            min_pay = min_pay,
-            max_pay = max_pay,
-            outreach_date = outreach_date,
-            num_rounds_reached = num_rounds_reached
+            user_id=self.id,
+            status=status,
+            company_name=company_name,
+            job_title=job_title,
+            remote=remote,
+            city=city,
+            state=state,
+            cover_letter=cover_letter,
+            app_recived_confirm=app_recived_confirm,
+            farthest_round_cat=farthest_round_cat,
+            outreach=outreach,
+            outreach_response=outreach_response,
+            referral=referral,
+            result_date=result_date,
+            min_pay=min_pay,
+            max_pay=max_pay,
+            outreach_date=outreach_date,
+            num_rounds_reached=num_rounds_reached
         )
-        #FIXME: add commits to the route instead of the model for err. handling
+        # FIXME: add commits to the route instead of the model for err. handling
 
         db.session.add(app)
         db.session.commit()
@@ -152,11 +151,7 @@ class User(db.Model):
         '''serialize to dictionary'''
 
         return {
-            'username':self.username,
+            'username': self.username,
             'name': self.name,
             'password': self.password
         }
-
-
-
-
