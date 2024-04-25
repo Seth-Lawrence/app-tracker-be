@@ -74,10 +74,13 @@ class UsersTestCase(TestCase):
     def test_register_method(self):
         '''tests if register method works'''
 
-        User.register('registered_user','registered_name','password')
-        resp = User.query.filter(User.username == 'registered_user')
-        user = resp[0]
+        user_data = {
+            'username':'registered_user',
+            'name': 'registered_name',
+            'password': 'password'
+        }
 
+        user = User.register(user_data)
         self.assertEqual(user.username, 'registered_user')
 
         #ensuring the password is not in plain text

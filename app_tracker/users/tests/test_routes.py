@@ -1,4 +1,5 @@
 from unittest import TestCase
+from flask import json
 
 from app_tracker.app import app
 from app_tracker.database import db
@@ -31,8 +32,10 @@ class UserRoutesTestCase(TestCase):
                                json=test_user_data
                             )
 
-            print('RESPONSE', resp)
+            user = resp.json['user']
 
-            self.assertEqual(resp.username, 'test')
-            self.assertequal(resp.name, 'test_name')
-            self.assertNotEqual(resp.password, 'test_password')
+            print('USER', user['name'])
+
+            self.assertEqual(user['username'], 'test')
+            self.assertEqual(user['name'], 'test_name')
+            self.assertNotEqual(user['password'], 'test_password')
