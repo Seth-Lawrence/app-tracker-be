@@ -1,5 +1,5 @@
 from app_tracker.database import db
-from flask_bcrypt import Bcrypt, generate_password_hash
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from app_tracker.applications.models import Application
 from datetime import datetime
 
@@ -80,17 +80,24 @@ class User(db.Model):
             name=name,
             password=hashed_pwd,
         )
-        #FIXME: add commits to the route instead of the model for err. handling
 
-        # db.session.add(user)
-        # db.session.commit()
+        #FIXME: giong to break tests since I moved db commits to routes
 
         return user
 
-    @classmethod
-    def authenticate(cls, username, password):
-        '''checks username and password and logs in user'''
 
+    @classmethod
+    def authenticate(cls, username:str, password:str) -> bool:
+        '''checks username and password and logs in user or returns none'''
+
+        user = User.query.filter(User.username == username).one_or_none()
+
+        pwd = check_password_hash(user[0].get(password, None), password)
+
+        if pwd:
+            return True
+
+        return False
 
 
     def add_application(self,
