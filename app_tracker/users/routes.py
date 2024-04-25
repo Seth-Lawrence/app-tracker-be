@@ -7,7 +7,7 @@ from sqlalchemy import exc
 user = Blueprint('user',__name__)
 
 @user.post('/register')
-def register_user():
+def register_user() -> None:
     '''calls register user on the api and registers the user'''
 
     user_data = request.json
@@ -41,4 +41,3 @@ def sign_in() -> bool:
         return True
 
     return False
-
