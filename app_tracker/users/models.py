@@ -147,3 +147,16 @@ class User(db.Model):
         db.session.commit()
 
         return app
+
+    def serialize(self):
+        '''serialize to dictionary'''
+
+        return {
+            'username':self.username,
+            'name': self.name,
+            'password': self.password
+        }
+
+
+
+

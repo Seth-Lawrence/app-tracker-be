@@ -4,10 +4,11 @@ from app_tracker.users.models import User
 from sqlalchemy import exc
 
 
-user = Blueprint('user',__name__)
+user = Blueprint('user', __name__)
+
 
 @user.post('/register')
-def register_user() -> None:
+def register_user():
     '''calls register user on the api and registers the user'''
 
     user_data = request.json
@@ -25,9 +26,13 @@ def register_user() -> None:
         db.session.commit()
     except exc.IntegrityError:
         db.session.rollback()
-        return jsonify(error='Username taken.')
+        return jsonify(
+            error='Your username did not meet requirements. Try another.'
+        )
 
-    return jsonify(user=user)
+    serialized_user = user.serialize()
+
+    return jsonify(user=serialized_user)
 
 
 @user.post('/signin')

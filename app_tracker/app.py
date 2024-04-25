@@ -21,8 +21,6 @@ def authorize():
     else:
         g.user = None
 
-
-
 app.register_blueprint(user, url_prefix='/api/user')
 
 connect_db(app)
