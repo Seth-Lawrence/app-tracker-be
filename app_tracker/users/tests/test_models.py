@@ -15,6 +15,7 @@ app.config['TESTING'] = True
 db.drop_all()
 db.create_all()
 
+
 class UsersTestCase(TestCase):
     def setUp(self):
         '''setting up data for testing'''
@@ -68,14 +69,14 @@ class UsersTestCase(TestCase):
         self.assertEqual(user.name, 'u2')
         self.assertIsNotNone(user.password)
 
-        #ensuring the password is not in plain text
+        # ensuring the password is not in plain text
         self.assertNotEqual(user.password, 'password')
 
     def test_register_method(self):
         '''tests if register method works'''
 
         user_data = {
-            'username':'registered_user',
+            'username': 'registered_user',
             'name': 'registered_name',
             'password': 'password'
         }
@@ -83,6 +84,6 @@ class UsersTestCase(TestCase):
         user = User.register(user_data)
         self.assertEqual(user.username, 'registered_user')
 
-        #ensuring the password is not in plain text
+        # ensuring the password is not in plain text
         self.assertNotEqual(user.password, 'password')
         self.assertIsNotNone(user.password)
