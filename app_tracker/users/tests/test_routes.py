@@ -17,16 +17,24 @@ verify_test_env_or_error()
 
 app.config['TESTING'] = True
 
-db.drop_all()
-db.create_all()
+
 
 
 class UserRoutesTestCase(TestCase):
     def setUp(self):
         '''setting up for testing'''
-        User.register(TEST_USER_DATA)
 
+        db.drop_all()
+        db.create_all()
 
+        user = User.register(TEST_USER_DATA)
+        db.session.add(user)
+        db.session.commit()
+
+    def tearDown(self) -> None:
+        '''rollback any fouled transactions'''
+
+        db.session.rollback()
 
     def test_registration(self):
         '''tests to see if a user can register'''
@@ -50,10 +58,8 @@ class UserRoutesTestCase(TestCase):
             self.assertEqual(user['name'], 'test_name')
             self.assertNotEqual(user['password'], 'test_password')
 
-    def test_authenticate():
+    def test_authenticate(self):
         '''tests user sign in'''
-        ...
+        user = User.authenticate('global_test_user', 't_password')
 
-
-
-
+        self.assertEqual(user, True)
