@@ -63,5 +63,13 @@ class UserRoutesTestCase(TestCase):
     def test_authenticate(self):
         '''tests user sign in'''
 
-        with app.test_client as client:
-            resp = client.post(f'{BASE_API}signin')
+        user_signin = {
+            'username':'global_test_user',
+            'password': 't_password'
+        }
+
+        with app.test_client() as client:
+            resp = client.post(f'{BASE_API}signin',
+                               json={user_signin})
+
+        self.assertEqual(resp, True)

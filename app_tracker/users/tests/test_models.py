@@ -26,7 +26,7 @@ class UsersTestCase(TestCase):
         self.u1 = User(
             name='u1',
             username='test_user_1',
-            password='password'
+            password='password1'
         )
 
         self.u2 = User(
@@ -87,3 +87,18 @@ class UsersTestCase(TestCase):
         # ensuring the password is not in plain text
         self.assertNotEqual(user.password, 'password')
         self.assertIsNotNone(user.password)
+
+    def test_authenticate(self):
+        '''tests if authenticate works'''
+
+        auth = User.authenticate('test_user_1', 'password1')
+
+        self.assertTrue(auth)
+
+
+    def test_invalid_authentication(self):
+        '''tests to ensure invalid creds don't sign in'''
+
+        auth = User.authenticate('test_user_1', 'invalid_password')
+
+        self.assertFalse(auth)

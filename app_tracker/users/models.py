@@ -82,8 +82,6 @@ class User(db.Model):
             password=hashed_pwd,
         )
 
-        # FIXME: giong to break tests since I moved db commits to routes
-
         return user
 
     @classmethod
