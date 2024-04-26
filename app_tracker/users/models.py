@@ -117,8 +117,9 @@ class User(db.Model):
                         max_pay: int | None = None,
                         outreach_date: datetime | None = datetime,
                         num_rounds_reached: int = 0
-                        ):
-        '''adds new application for user'''
+                        ) -> object:
+
+        '''adds new application for user instance'''
 
         app = Application(
             user_id=self.id,

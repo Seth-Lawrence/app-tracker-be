@@ -6,6 +6,12 @@ from app_tracker.database import db
 from app_tracker.test_config import verify_test_env_or_error
 from app_tracker.users.models import User
 
+TEST_USER_DATA = {
+    'username': 'global_test_user',
+    'name': 't_name',
+    'password': 't_password'
+}
+
 # ensuring that we're in the test environment
 verify_test_env_or_error()
 
@@ -16,7 +22,11 @@ db.create_all()
 
 
 class UserRoutesTestCase(TestCase):
-    '''tests user routes'''
+    def setUp(self):
+        '''setting up for testing'''
+        User.register(TEST_USER_DATA)
+
+
 
     def test_registration(self):
         '''tests to see if a user can register'''
@@ -39,3 +49,11 @@ class UserRoutesTestCase(TestCase):
             self.assertEqual(user['username'], 'test')
             self.assertEqual(user['name'], 'test_name')
             self.assertNotEqual(user['password'], 'test_password')
+
+    def test_authenticate():
+        '''tests user sign in'''
+        ...
+
+
+
+
