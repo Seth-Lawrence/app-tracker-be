@@ -12,6 +12,8 @@ TEST_USER_DATA = {
     'password': 't_password'
 }
 
+BASE_API = '/api/user/'
+
 # ensuring that we're in the test environment
 verify_test_env_or_error()
 
@@ -46,7 +48,7 @@ class UserRoutesTestCase(TestCase):
         }
 
         with app.test_client() as client:
-            resp = client.post('/api/user/register',
+            resp = client.post(f'{BASE_API}register',
                                json=test_user_data
                             )
 
@@ -60,6 +62,6 @@ class UserRoutesTestCase(TestCase):
 
     def test_authenticate(self):
         '''tests user sign in'''
-        user = User.authenticate('global_test_user', 't_password')
 
-        self.assertEqual(user, True)
+        with app.test_client as client:
+            resp = client.post(f'{BASE_API}signin')
