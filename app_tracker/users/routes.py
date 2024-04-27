@@ -36,13 +36,13 @@ def register_user():
 
 
 @user.post('/signin')
-def sign_in() -> bool:
-    '''signs in user'''
+def sign_in():
+    '''signs in user returns True for successfull auth, otherwise false'''
 
     user_data = request.json
 
-    if User.authenticate(user_data.username, user_data.password):
-        session['curr_user'] = user_data.username
-        return True
+    if User.authenticate(user_data['username'], user_data['password']):
+        session['curr_user'] = user_data['username']
+        return jsonify(True)
 
-    return False
+    return jsonify(False)

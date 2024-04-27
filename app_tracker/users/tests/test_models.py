@@ -1,4 +1,5 @@
 from unittest import TestCase
+from flask_bcrypt import generate_password_hash
 
 from app_tracker.test_config import verify_test_env_or_error
 from app_tracker.app import app
@@ -12,27 +13,28 @@ verify_test_env_or_error()
 
 app.config['TESTING'] = True
 
-db.drop_all()
-db.create_all()
-
 
 class UsersTestCase(TestCase):
     def setUp(self):
         '''setting up data for testing'''
         self.client = app.test_client()
 
+        db.drop_all()
+        db.create_all()
+
         User.query.delete()
+
 
         self.u1 = User(
             name='u1',
             username='test_user_1',
-            password='password1'
+            password=generate_password_hash('password1').decode('utf-8')
         )
 
         self.u2 = User(
             name='u2',
             username='test_user_2',
-            password='password2'
+            password=generate_password_hash('password2').decode('utf-8')
         )
 
         db.session.add(self.u1)
@@ -94,7 +96,6 @@ class UsersTestCase(TestCase):
         auth = User.authenticate('test_user_1', 'password1')
 
         self.assertTrue(auth)
-
 
     def test_invalid_authentication(self):
         '''tests to ensure invalid creds don't sign in'''

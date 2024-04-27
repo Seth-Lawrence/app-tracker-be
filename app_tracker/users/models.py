@@ -29,7 +29,7 @@ class User(db.Model):
     )
 
     password = db.Column(
-        db.String(),
+        db.Text(),
         nullable=False
     )
 
@@ -74,7 +74,7 @@ class User(db.Model):
         name = user_data['name']
         password = user_data['password']
 
-        hashed_pwd = generate_password_hash(password).decode('UTF-8')
+        hashed_pwd = generate_password_hash(password).decode('utf-8')
 
         user = User(
             username=username,
@@ -90,9 +90,7 @@ class User(db.Model):
 
         user = User.query.filter(User.username == username).one_or_none()
 
-        pwd = check_password_hash(user[0].get(password, None), password)
-
-        if pwd:
+        if user and check_password_hash(user.password, password):
             return True
 
         return False
