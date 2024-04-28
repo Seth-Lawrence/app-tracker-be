@@ -20,8 +20,6 @@ verify_test_env_or_error()
 app.config['TESTING'] = True
 
 
-
-
 class UserRoutesTestCase(TestCase):
     def setUp(self):
         '''setting up for testing'''
@@ -50,7 +48,7 @@ class UserRoutesTestCase(TestCase):
         with app.test_client() as client:
             resp = client.post(f'{BASE_API}register',
                                json=test_user_data
-                            )
+                               )
 
             user = resp.json['user']
 
@@ -64,7 +62,7 @@ class UserRoutesTestCase(TestCase):
         '''tests user sign in'''
 
         user_signin = {
-            'username':'global_test_user',
+            'username': 'global_test_user',
             'password': 't_password'
         }
 
