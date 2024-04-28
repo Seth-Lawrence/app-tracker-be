@@ -35,9 +35,9 @@ def register_user():
 
     return jsonify(user=serialized_user)
 
-
-@user.post('/signin')
-def sign_in():
+#TODO: test
+@user.post('/login')
+def login():
     '''signs in user returns True for successfull auth, otherwise false'''
 
     user_data = request.json
@@ -48,4 +48,11 @@ def sign_in():
         return jsonify(True)
 
     return jsonify(False)
+
+#TODO: test
+@user.post('/logout')
+def logout():
+    '''logs user out'''
+
+    logout_user()
 

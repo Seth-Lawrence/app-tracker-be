@@ -66,7 +66,7 @@ class UserRoutesTestCase(TestCase):
         }
 
         with app.test_client() as client:
-            resp = client.post(f'{BASE_API}signin',
+            resp = client.post(f'{BASE_API}login',
                                json=user_signin)
 
         self.assertEqual(resp.json, True)
