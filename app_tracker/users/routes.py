@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app_tracker.database import db
-from app_tracker.app import do_login, logout_user
+from app_tracker.auth.models import Auth
 from app_tracker.users.models import User
 from sqlalchemy import exc
 
@@ -43,7 +43,7 @@ def login():
     user_data = request.json
 
     if User.authenticate(user_data['username'], user_data['password']):
-        do_login(user_data['username'])
+        Auth.do_login(user_data['username'])
 
         return jsonify(True)
 
@@ -54,4 +54,4 @@ def login():
 def logout():
     '''logs user out'''
 
-    logout_user()
+    Auth.logout_user()
