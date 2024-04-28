@@ -1,5 +1,4 @@
 from unittest import TestCase
-from flask import json
 
 from app_tracker.app import app
 from app_tracker.database import db
