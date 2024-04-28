@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, request, session, g
 from app_tracker.database import db
+from app_tracker.app import do_login, logout_user
 from app_tracker.users.models import User
 from sqlalchemy import exc
 
@@ -42,7 +43,9 @@ def sign_in():
     user_data = request.json
 
     if User.authenticate(user_data['username'], user_data['password']):
-        session['curr_user'] = user_data['username']
+        do_login(user_data['username'])
+
         return jsonify(True)
 
     return jsonify(False)
+

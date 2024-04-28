@@ -21,6 +21,18 @@ def authorize():
     else:
         g.user = None
 
+
+def do_login(user):
+    '''logs user in, adds to session'''
+
+    session[USER] = user.id
+
+def logout_user():
+    '''logs user out --> deletes user from sesison'''
+
+    if USER in session:
+        del session[USER]
+
 app.register_blueprint(user, url_prefix='/api/user')
 
 connect_db(app)
