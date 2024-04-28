@@ -55,4 +55,3 @@ def logout():
     '''logs user out'''
 
     logout_user()
-
