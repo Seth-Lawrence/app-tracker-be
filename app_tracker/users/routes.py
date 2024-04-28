@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, session, g
+from flask import Blueprint, jsonify, request
 from app_tracker.database import db
 from app_tracker.app import do_login, logout_user
 from app_tracker.users.models import User
