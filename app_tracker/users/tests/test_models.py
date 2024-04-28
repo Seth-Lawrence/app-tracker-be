@@ -24,7 +24,6 @@ class UsersTestCase(TestCase):
 
         User.query.delete()
 
-
         self.u1 = User(
             name='u1',
             username='test_user_1',
