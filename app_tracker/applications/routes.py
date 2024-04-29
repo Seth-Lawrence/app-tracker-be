@@ -45,7 +45,7 @@ def create_application():
 
     return jsonify(app = serialized_app)
 
-@application.post('/edit')
+@application.patch('/edit')
 def edit_application():
     '''edits existing application'''
 
