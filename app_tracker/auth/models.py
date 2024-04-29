@@ -1,6 +1,5 @@
 from flask import session
-
-USER = 'curr_user'
+from app_tracker.app import USER
 
 
 class Auth:
