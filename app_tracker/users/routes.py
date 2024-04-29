@@ -45,9 +45,9 @@ def login():
     if User.authenticate(user_data['username'], user_data['password']):
         Auth.do_login(user_data['username'])
 
-        return jsonify(True)
+        return jsonify(Login = True)
 
-    return jsonify(False)
+    return jsonify(Login = False)
 
 #TODO: test
 @user.post('/logout')
@@ -55,3 +55,5 @@ def logout():
     '''logs user out'''
 
     Auth.logout_user()
+
+    return jsonify(logout = True)
