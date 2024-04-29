@@ -139,9 +139,6 @@ class User(db.Model):
         )
         # FIXME: add commits to the route instead of the model for err. handling
 
-        db.session.add(app)
-        db.session.commit()
-
         return app
 
     def serialize(self):
