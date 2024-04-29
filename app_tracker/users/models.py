@@ -131,5 +131,5 @@ class User(db.Model):
         return {
             'username': self.username,
             'name': self.name,
-            'password': self.password
+            'hashed_password': self.password
         }
