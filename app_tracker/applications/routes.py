@@ -22,14 +22,13 @@ def create_application():
     try:
         db.session.commit()
     except exc.IntegrityError:
+        db.session.rollback()
         return jsonify(error='Error submitting application')
 
-    return jsonify(app)
+    serialized_app = app.serialize()
 
+    return jsonify(app = serialized_app)
 
 @application.post('/edit')
 def edit_application():
     '''edits existing application'''
-
-
-

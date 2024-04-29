@@ -1,7 +1,6 @@
 from app_tracker.database import db
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from app_tracker.applications.models import Application
-from datetime import datetime
 
 bcrypt = Bcrypt()
 
