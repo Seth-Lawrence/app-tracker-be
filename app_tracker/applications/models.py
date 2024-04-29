@@ -98,3 +98,29 @@ class Application(db.Model):
     job_link = db.Column(
         db.String()
     )
+
+    def serialize(self):
+        '''serialize to dictionary'''
+
+        return {
+           'user_id': self.user_id,
+           'status': self.status,
+           'company_name': self.company_name,
+           'job_title': self.job_title,
+           'remote': self.remote,
+           'city': self.city,
+           'state': self.state,
+           'min_pay': self.min_pay,
+           'max_pay': self.max_pay,
+           'cover_letter': self.cover_letter,
+           'app_received_confirm': self.app_received_confirm,
+           'num_rounds_reached': self.num_rounds_reached,
+           'farthest_round_cat': self.farthest_round_cat,
+           'outreach': self.outreach,
+           'outreach_date': self.outreach_date,
+           'outreach_response': self.outreach_response,
+           'referral': self.referral,
+           'result_date': self.result_date,
+           'notes': self.notes,
+           'job_link': self.job_link
+        }
