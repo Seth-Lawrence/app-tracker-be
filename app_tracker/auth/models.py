@@ -7,10 +7,7 @@ class Auth:
 
     @classmethod
     def do_login(self, username:str) -> None:
-        '''
-        takes username and adds to session
-        to keep user in session
-        '''
+        '''takes username and adds to session  to keep user in session'''
 
         session[USER] = username
 
