@@ -94,8 +94,7 @@ class User(db.Model):
 
         return False
 
-    def add_application(self, application_data:object) -> Application:
-
+    def add_application(self, application_data: object) -> Application:
         '''adds new application for user instance'''
 
         app = Application(
@@ -120,6 +119,11 @@ class User(db.Model):
         )
 
         return app
+
+    def get_applications(self):
+        '''gets list of applications'''
+
+        return self.apps
 
     def serialize(self):
         '''serialize to dictionary'''
