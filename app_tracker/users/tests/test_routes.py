@@ -55,7 +55,7 @@ class UserRoutesTestCase(TestCase):
 
             self.assertEqual(user['username'], 'test')
             self.assertEqual(user['name'], 'test_name')
-            self.assertNotEqual(user['password'], 'test_password')
+            self.assertNotEqual(user['hashed_password'], 'test_password')
 
     def test_authenticate(self):
         '''tests user sign in'''
@@ -69,4 +69,4 @@ class UserRoutesTestCase(TestCase):
             resp = client.post(f'{BASE_API}login',
                                json=user_signin)
 
-        self.assertEqual(resp.json, True)
+        self.assertEqual(resp.json['Login'], True)
