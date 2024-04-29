@@ -1,9 +1,10 @@
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, request, session, g
 from sqlalchemy import exc
 
 from app_tracker.users.models import User
 from app_tracker.applications.models import Application
 from app_tracker.database import db
+from app_tracker.auth.models import USER
 
 
 application = Blueprint('application', __name__)
@@ -13,12 +14,18 @@ application = Blueprint('application', __name__)
 def list_applications():
     '''lists all users applications'''
 
-    g.user = session['USER']
+    if not g.user:
+        return jsonify('unauthorized')
+
+    g.user = session[USER]
 
 
 @application.post('/new')
 def create_application():
     '''adds application'''
+
+    if not g.user:
+        return jsonify('unauthorized')
 
     app_data = request.json
     username = app_data['username']
@@ -41,6 +48,9 @@ def create_application():
 @application.post('/edit')
 def edit_application():
     '''edits existing application'''
+
+    if not g.user:
+        return jsonify('unauthorized')
 
     data = request.json
 
