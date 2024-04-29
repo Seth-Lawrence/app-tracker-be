@@ -95,49 +95,30 @@ class User(db.Model):
 
         return False
 
-    def add_application(self,
-                        status: str,
-                        company_name: str,
-                        job_title: str,
-                        city: str,
-                        state: str,
-                        cover_letter: bool,
-                        remote: bool | None,
-                        app_recived_confirm: bool | None,
-                        farthest_round_cat: str,
-                        outreach: bool | None,
-                        outreach_response: bool | None,
-                        referral: bool | None,
-                        result_date: datetime | None,
-                        min_pay: int | None = None,
-                        max_pay: int | None = None,
-                        outreach_date: datetime | None = datetime,
-                        num_rounds_reached: int = 0
-                        ) -> object:
+    def add_application(self, application_data:object) -> Application:
 
         '''adds new application for user instance'''
 
         app = Application(
             user_id=self.id,
-            status=status,
-            company_name=company_name,
-            job_title=job_title,
-            remote=remote,
-            city=city,
-            state=state,
-            cover_letter=cover_letter,
-            app_recived_confirm=app_recived_confirm,
-            farthest_round_cat=farthest_round_cat,
-            outreach=outreach,
-            outreach_response=outreach_response,
-            referral=referral,
-            result_date=result_date,
-            min_pay=min_pay,
-            max_pay=max_pay,
-            outreach_date=outreach_date,
-            num_rounds_reached=num_rounds_reached
+            status=application_data['status'],
+            company_name=application_data['company_name'],
+            job_title=application_data['job_title'],
+            remote=application_data['remote'],
+            city=application_data['city'],
+            state=application_data['state'],
+            cover_letter=application_data['cover_letter'],
+            app_recived_confirm=application_data['app_recived_confirm'],
+            farthest_round_cat=application_data['farthest_round_cat'],
+            outreach=application_data['outreach'],
+            outreach_response=application_data['outreach_response'],
+            referral=application_data['referral'],
+            result_date=application_data['result_date'],
+            min_pay=application_data['min_pay'],
+            max_pay=application_data['max_pay'],
+            outreach_date=application_data['outreach_date'],
+            num_rounds_reached=application_data['num_rounds_reached']
         )
-        # FIXME: add commits to the route instead of the model for err. handling
 
         return app
 
