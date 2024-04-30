@@ -1,7 +1,6 @@
 from app_tracker.app import app
 from app_tracker.users.models import User
 from app_tracker.database import db
-# from app_tracker.applications.models import Application
 
 with app.app_context():
     db.drop_all()
@@ -13,4 +12,6 @@ user_data = {
     'password': 'password1'
 }
 
-User.register(user_data)
+user = User.register(user_data)
+db.session.add(user)
+db.session.commit()
