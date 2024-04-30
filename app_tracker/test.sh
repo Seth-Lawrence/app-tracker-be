@@ -1,1 +1,1 @@
-TESTING=1 python3 -m unittest -v
+TESTING=1 coverage run -m unittest -v
