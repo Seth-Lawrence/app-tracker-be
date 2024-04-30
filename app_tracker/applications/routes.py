@@ -4,7 +4,7 @@ from sqlalchemy import exc
 from app_tracker.users.models import User
 from app_tracker.applications.models import Application
 from app_tracker.database import db
-from app_tracker.auth.models import USER
+from app_tracker.config import USER
 
 
 application = Blueprint('application', __name__)

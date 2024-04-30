@@ -5,13 +5,12 @@ from app_tracker.config import DATABASE_URL, SECRET_KEY
 from app_tracker.users.routes import user
 from app_tracker.users.models import User
 from app_tracker.applications.routes import application
-
+from app_tracker.config import USER
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SECRET_KEY'] = SECRET_KEY
 
-USER = 'curr_user'
 
 
 @app.before_request
