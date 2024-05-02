@@ -47,9 +47,9 @@ def login():
     if User.authenticate(user_data['username'], user_data['password']):
         Auth.do_login(user_data['username'])
 
-        return jsonify(Login=True)
+        return jsonify(login=True)
 
-    return jsonify(Login=False)
+    return jsonify(login=False)
 
 # TODO: test
 

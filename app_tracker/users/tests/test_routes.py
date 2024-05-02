@@ -73,5 +73,30 @@ class UserRoutesTestCase(TestCase):
                 resp = client.post(f'{BASE_API}login',
                                 json=user_signin)
 
-                self.assertEqual(resp.json['Login'], True)
+                self.assertEqual(resp.json['login'], True)
                 self.assertEqual(session[USER],user_signin['username'])
+                self.assertTrue(USER in session)
+
+
+    def test_logout(self):
+        '''tests user log out and removal from session'''
+
+        user_signin = {
+        'username': 'global_test_user',
+        'password': 't_password'
+    }
+
+        with app.test_client() as client:
+            with app.app_context():
+                resp = client.post(f'{BASE_API}login',
+                                json=user_signin
+                                )
+
+                resp_logout = client.post(f'{BASE_API}logout')
+
+                self.assertEqual(resp_logout.json['logout'], True)
+                self.assertNotIn(USER, session)
+
+
+
+
