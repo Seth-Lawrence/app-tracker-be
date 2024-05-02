@@ -96,7 +96,3 @@ class UserRoutesTestCase(TestCase):
 
                 self.assertEqual(resp_logout.json['logout'], True)
                 self.assertNotIn(USER, session)
-
-
-
-
