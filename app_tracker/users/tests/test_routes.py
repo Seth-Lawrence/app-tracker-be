@@ -1,9 +1,12 @@
 from unittest import TestCase
+from flask import session
 
 from app_tracker.app import app
 from app_tracker.database import db
 from app_tracker.test_config import verify_test_env_or_error
 from app_tracker.users.models import User
+
+from app_tracker.config import USER
 
 TEST_USER_DATA = {
     'username': 'global_test_user',
@@ -66,7 +69,9 @@ class UserRoutesTestCase(TestCase):
         }
 
         with app.test_client() as client:
-            resp = client.post(f'{BASE_API}login',
-                               json=user_signin)
+            with app.app_context():
+                resp = client.post(f'{BASE_API}login',
+                                json=user_signin)
 
-        self.assertEqual(resp.json['Login'], True)
+                self.assertEqual(resp.json['Login'], True)
+                self.assertEqual(session[USER],user_signin['username'])
