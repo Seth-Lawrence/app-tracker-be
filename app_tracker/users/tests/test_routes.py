@@ -73,8 +73,12 @@ class UserRoutesTestCase(TestCase):
                 resp = client.post(f'{BASE_API}login',
                                 json=user_signin)
 
-                self.assertEqual(resp.json['login'], True)
-                self.assertEqual(session[USER],user_signin['username'])
+                user = resp.json['user']
+
+                print(user)
+
+                self.assertEqual(user['username'], 'global_test_user')
+                self.assertEqual(session[USER],user['id'])
                 self.assertTrue(USER in session)
 
 

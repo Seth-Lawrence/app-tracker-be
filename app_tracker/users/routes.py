@@ -43,10 +43,12 @@ def login():
     user_data = request.json
     user = User.authenticate(user_data['username'], user_data['password'])
 
+    serialized_user = user.serialize()
+
     if user:
         Auth.do_login(user)
 
-        return jsonify(user=user)
+        return jsonify(user=serialized_user)
 
     return jsonify(error = 'incorrect username or password')
 
