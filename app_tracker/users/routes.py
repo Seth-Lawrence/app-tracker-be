@@ -35,9 +35,6 @@ def register_user():
 
     return jsonify(user=serialized_user)
 
-# TODO: test
-
-
 @user.post('/login')
 def login():
     '''signs in user returns True for successfull auth, otherwise false'''
