@@ -35,20 +35,20 @@ def register_user():
 
     return jsonify(user=serialized_user)
 
+
 @user.post('/login')
 def login():
     '''signs in user returns True for successfull auth, otherwise false'''
 
     user_data = request.json
+    user = User.authenticate(user_data['username'], user_data['password'])
 
-    if User.authenticate(user_data['username'], user_data['password']):
-        Auth.do_login(user_data['username'])
+    if user:
+        Auth.do_login(user)
 
-        return jsonify(login=True)
+        return jsonify(user=user)
 
-    return jsonify(login=False)
-
-# TODO: test
+    return jsonify(error = 'incorrect username or password')
 
 
 @user.post('/logout')

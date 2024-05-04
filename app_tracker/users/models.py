@@ -90,7 +90,7 @@ class User(db.Model):
         user = User.query.filter(User.username == username).one_or_none()
 
         if user and check_password_hash(user.password, password):
-            return True
+            return user
 
         return False
 

@@ -6,10 +6,10 @@ class Auth:
     '''model for keeping users logged in / logging out through sessions'''
 
     @classmethod
-    def do_login(self, username: str) -> None:
+    def do_login(self, user: object) -> None:
         '''takes username and adds to session  to keep user in session'''
 
-        session[USER] = username
+        session[USER] = user.id
 
     @classmethod
     def logout_user(self) -> None:
