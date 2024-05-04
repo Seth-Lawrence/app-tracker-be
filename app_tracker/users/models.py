@@ -129,7 +129,7 @@ class User(db.Model):
         '''serialize to dictionary'''
 
         return {
-            'user_id': self.id,
+            'id': self.id,
             'username': self.username,
             'name': self.name,
             'hashed_password': self.password
