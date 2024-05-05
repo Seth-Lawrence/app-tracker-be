@@ -1,11 +1,35 @@
 from unittest import TestCase
 from flask_bcrypt import generate_password_hash
+from datetime import datetime
+
+
 
 from app_tracker.test_config import verify_test_env_or_error
 from app_tracker.app import app
 from app_tracker.database import db
-
+from app_tracker.applications.models import Application
 from app_tracker.users.models import User
+
+
+APPLICATION_DATA = {
+    'status': 'active',
+    'company_name': 'test_company',
+    'job_title': 't_title',
+    'remote': True,
+    'city': 't_city',
+    'state': 't_state',
+    'cover_letter': True,
+    'app_received_confirm': True,
+    'farthest_round_cat': 'application',
+    'outreach': True,
+    'outreach_response': True,
+    'referral': True,
+    'result_date': None,
+    'min_pay': None,
+    'max_pay': None,
+    'outreach_date': None,
+    'num_rounds_reached': None
+}
 
 # verify that the test environ is correct
 verify_test_env_or_error()
@@ -102,3 +126,19 @@ class UsersTestCase(TestCase):
         auth = User.authenticate('test_user_1', 'invalid_password')
 
         self.assertFalse(auth)
+
+    def test_adding_application(self):
+        resp = User.query.filter(User.username == 'test_user_1')
+
+        user = resp[0]
+
+        print(user)
+
+        app = user.add_application(APPLICATION_DATA)
+
+        db.session.add(app)
+        db.session.commit()
+
+        application = Application.query.all()[0].serialize()
+
+        self.assertEqual(application['user_id'], 1)

@@ -42,7 +42,7 @@ class Application(db.Model):
     )
 
     state = db.Column(
-        db.String(2),
+        db.String(),
         nullable=True
     )
 

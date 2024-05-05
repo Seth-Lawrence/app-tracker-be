@@ -106,7 +106,7 @@ class User(db.Model):
             city=application_data['city'],
             state=application_data['state'],
             cover_letter=application_data['cover_letter'],
-            app_recived_confirm=application_data['app_recived_confirm'],
+            app_received_confirm=application_data['app_received_confirm'],
             farthest_round_cat=application_data['farthest_round_cat'],
             outreach=application_data['outreach'],
             outreach_response=application_data['outreach_response'],
