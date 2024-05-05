@@ -21,4 +21,3 @@ app.config['TESTING'] = True
 #         return super().tearDown()
 
 #     def test_serialize()
-
