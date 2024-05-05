@@ -3,7 +3,6 @@ from flask_bcrypt import generate_password_hash
 from datetime import datetime
 
 
-
 from app_tracker.test_config import verify_test_env_or_error
 from app_tracker.app import app
 from app_tracker.database import db
@@ -64,15 +63,18 @@ class UsersTestCase(TestCase):
         db.session.add(self.u2)
         db.session.commit()
 
+
     def tearDown(self):
         '''clean up any fouled transactions'''
 
         db.session.rollback()
 
+
     def test_setup(self):
         '''test to see if tests are setup correctly'''
         test_setup_correct = True
         self.assertEqual(test_setup_correct, True)
+
 
     def test_u1_added(self):
         '''tests if first user was added correctly'''
@@ -82,6 +84,7 @@ class UsersTestCase(TestCase):
         self.assertEqual(u1[0].username, 'test_user_1')
         self.assertEqual(u1[0].name, 'u1')
         self.assertIsNotNone(u1[0].password)
+
 
     def test_u2_added(self):
         '''tests if second user was added correctly'''
@@ -96,6 +99,7 @@ class UsersTestCase(TestCase):
 
         # ensuring the password is not in plain text
         self.assertNotEqual(user.password, 'password')
+
 
     def test_register_method(self):
         '''tests if register method works'''
@@ -113,12 +117,14 @@ class UsersTestCase(TestCase):
         self.assertNotEqual(user.password, 'password')
         self.assertIsNotNone(user.password)
 
+
     def test_authenticate(self):
         '''tests if authenticate works'''
 
         auth = User.authenticate('test_user_1', 'password1')
 
         self.assertTrue(auth)
+
 
     def test_invalid_authentication(self):
         '''tests to ensure invalid creds don't sign in'''
@@ -127,7 +133,9 @@ class UsersTestCase(TestCase):
 
         self.assertFalse(auth)
 
+
     def test_adding_application(self):
+        '''tests adding an application to an existing user'''
         resp = User.query.filter(User.username == 'test_user_1')
 
         user = resp[0]
