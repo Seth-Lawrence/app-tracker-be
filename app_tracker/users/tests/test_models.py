@@ -150,3 +150,27 @@ class UsersTestCase(TestCase):
         application = Application.query.all()[0].serialize()
 
         self.assertEqual(application['user_id'], 1)
+
+
+    def test_user_application_ref(self):
+        '''
+        tests that using the 'application' property
+        results in a list of user applications
+        '''
+        resp = User.query.filter(User.username == 'test_user_1')
+
+        user = resp[0]
+
+        print(user)
+
+        app = user.add_application(APPLICATION_DATA)
+
+        db.session.add(app)
+        db.session.commit()
+
+        application = user.apps[0].serialize()
+
+        self.assertEqual(len(user.apps), 1)
+        print('user applications', user.apps[0])
+        self.assertIn('job_title', application)
+        self.assertEqual(application['job_title'], 't_title')
