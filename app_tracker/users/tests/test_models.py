@@ -163,3 +163,4 @@ class UsersTestCase(TestCase):
         print('user applications', user.apps[0])
         self.assertIn('job_title', application)
         self.assertEqual(application['job_title'], 't_title')
+        self.assertDictContainsSubset(APPLICATION_DATA, application)
