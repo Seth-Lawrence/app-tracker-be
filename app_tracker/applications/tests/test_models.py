@@ -20,4 +20,4 @@ app.config['TESTING'] = True
 #     def tearDown(self) -> None:
 #         return super().tearDown()
 
-#     def test_serialize()
+#     def test_get_applications():
