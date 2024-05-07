@@ -17,8 +17,11 @@ def list_applications():
     if not g.user:
         return jsonify('unauthorized')
 
-    g.user = session[USER]
+    user_id = g.user
 
+    user = User.query.get(user_id)
+
+    return jsonify(applications = user.apps)
 
 @application.post('/new')
 def create_application():
