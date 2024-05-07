@@ -92,7 +92,7 @@ class UserRoutesTestCase(TestCase):
 
         with app.test_client() as client:
             with app.app_context():
-                resp = client.post(f'{BASE_API}login',
+                client.post(f'{BASE_API}login',
                                 json=user_signin
                                 )
 
