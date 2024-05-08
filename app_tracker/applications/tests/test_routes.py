@@ -81,9 +81,11 @@ class TestApplicationRoutes(TestCase):
                 client.post('/api/user/login',
                             json = U1_SIGNIN)
 
-        with app.test_client() as client:
-            resp = app.get(f'{BASE_API}all')
+        # with app.test_client() as client:
+                resp = client.get(f'{BASE_API}all')
 
-            print('RESPONSE', resp)
+                applications = resp.json
 
-            self.assertEqual(len(resp),1)
+                print('RESPONSE', applications)
+
+                self.assertEqual(len(resp),1)
